@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace Biblioteka.Web.Startup
 {
@@ -27,6 +28,13 @@ namespace Biblioteka.Web.Startup
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             }).AddNewtonsoftJson();
+
+            // Configure Swagger
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo{Title = "Biblioteka Swagger Title", Version = "v1"});
+                opt.DocInclusionPredicate((docName, descr) => true);
+            });
 
             //Configure Abp and Dependency Injection
             return services.AddAbp<BibliotekaWebModule>(options =>
@@ -46,6 +54,13 @@ namespace Biblioteka.Web.Startup
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
+                // Configure Swagger
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kuku");
+                });
             }
             else
             {
