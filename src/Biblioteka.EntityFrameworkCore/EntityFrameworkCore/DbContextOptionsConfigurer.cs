@@ -1,16 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+using System.Data.Common;
+
 namespace Biblioteka.EntityFrameworkCore
 {
-    public static class DbContextOptionsConfigurer
+    public static class MySqlDemoDbContextConfigurer
     {
-        public static void Configure(
-            DbContextOptionsBuilder<BibliotekaDbContext> dbContextOptions, 
-            string connectionString
-            )
+        public static void Configure(DbContextOptionsBuilder<BibliotekaDbContext> builder, string connectionString)
         {
-            /* This is the single point to configure DbContextOptions for BibliotekaDbContext */
-            dbContextOptions.UseSqlServer(connectionString);
+            builder.UseMySql(connectionString);
+        }
+
+        public static void Configure(DbContextOptionsBuilder<BibliotekaDbContext> builder, DbConnection connection)
+        {
+            builder.UseMySql(connection);
         }
     }
 }

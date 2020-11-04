@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
+
 namespace Biblioteka.Web.Startup
 {
     public class Startup
@@ -21,7 +22,7 @@ namespace Biblioteka.Web.Startup
             //Configure DbContext
             services.AddAbpDbContext<BibliotekaDbContext>(options =>
             {
-                DbContextOptionsConfigurer.Configure(options.DbContextOptions, options.ConnectionString);
+                MySqlDemoDbContextConfigurer.Configure(options.DbContextOptions, options.ConnectionString);
             });
 
             services.AddControllersWithViews(options =>

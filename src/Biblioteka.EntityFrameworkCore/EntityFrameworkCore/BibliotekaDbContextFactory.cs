@@ -3,6 +3,7 @@ using Biblioteka.Web;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace Biblioteka.EntityFrameworkCore
 {
@@ -14,7 +15,7 @@ namespace Biblioteka.EntityFrameworkCore
             var builder = new DbContextOptionsBuilder<BibliotekaDbContext>();
             var configuration = AppConfigurations.Get(WebContentDirectoryFinder.CalculateContentRootFolder());
 
-            DbContextOptionsConfigurer.Configure(
+            MySqlDemoDbContextConfigurer.Configure(
                 builder,
                 configuration.GetConnectionString(BibliotekaConsts.ConnectionStringName)
             );
